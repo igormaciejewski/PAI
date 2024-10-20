@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="logo.png" alt="firma it"> 
+            </div>
+            <nav class="menu">
+                <a>Strona Główna</a>
+                <a>Usługi</a>
+                <a>Kontakt</a>
+            </nav>
+        </header>
+        
+        <div class="banner">
+            <img src="animacja.gif" alt="Usługi informatyczne">
+        </div>
+        
+        <div class="main">
+            <h2>Kontakt</h2>
+            <form>
+                <table>
+                    <tr>
+                        <td><label for="imie">Imię:</label></td>
+                        <td><input type="text" id="imie" name="imie"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="nazwisko">Nazwisko:</label></td>
+                        <td><input type="text" id="nazwisko" name="nazwisko"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">E-mail:</label></td>
+                        <td><input type="email" id="email" name="email"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="zgloszenie">Zgłoszenie:</label></td>
+                        <td><textarea id="zgloszenie" name="zgloszenie" rows="10" cols="40"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="checkbox" id="regulamin" name="regulamin"> <label for="regulamin">Zapoznałam/em się z regulaminem</label></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="buttons">
+                            <button type="reset">Resetuj</button>
+                            <button type="submit">Prześlij</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <hr>
+        </div>
+
+        <div class="na dole"></div>
+        
+        <footer class="footer">
+            <p><strong>Autor strony: 12345678901</strong></p>
+        </footer>
+    </div>
+
+    <style>
+        body {
+            background-color: #EEEEEE;
+            font-family: Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+
+        .logo, .menu {
+            background-color: LightBlue;
+            height: 100px;
+            width: 100%;
+            padding: 10px 0;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .logo img {
+            height: 100px;
+            width: 100px;
+        }
+
+        .menu a {
+            font-size: 150%;
+            font-weight: bold;
+            color: Navy;
+            text-decoration: none;
+            margin: 10px;
+            padding: 5px;
+            position: relative; 
+            left: 900px;          
+            top: -100px; 
+        }
+
+        .menu a:hover {
+            border: 1px solid Navy;
+        }
+
+        .banner {
+            background-color: #DDDDDD;
+            height: 200px;
+            text-align: center;
+        }
+        .banner img{
+            position: relative;
+            left: -339px;
+        }
+
+        .main {
+            color: Navy;
+            margin: 50px;
+            height: 400px;
+        }
+
+        .footer {
+            background-color: LightBlue;
+            text-align: right;
+            padding: 10px;
+        }
+
+        button {
+            background-color: LightBlue;
+            color: Navy;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</body>
+</html>
