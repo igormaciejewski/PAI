@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gra na pamiec</title>
+</head>
+<body>
+
+    <header>
+        <h1>Gra na pamiec</h1>
+        <p>By Igor Maciejewski</p>
+    </header>
+
+    <main>
+        <article>
+            <div class="board">
+                <div class="card" id="c0"></div>
+                <div class="card" id="c1"></div>
+                <div class="card" id="c2"></div>
+                <div class="card" id="c3"></div>
+                
+                <div class="card" id="c4"></div>
+                <div class="card" id="c5"></div>
+                <div class="card" id="c6"></div>
+                <div class="card" id="c7"></div>
+                
+                <div class="card" id="c8"></div>
+                <div class="card" id="c9"></div>
+                <div class="card" id="c10"></div>
+                <div class="card" id="c11"></div>
+                
+                <div class="score">Licznik: 0</div>
+            </div>
+        </article>
+    </main>
+
+    <script src="jquery-3.2.1.min.js"></script>
+    <script>
+		var cards = ["kolo1", "trojkat1", "kolo1", "kolo2", "trojkat1", "kwadrat2", "kwadrat1", "kwadrat2", "trojkat2", "kolo2", "trojkat2", "kwadrat1"];
+        var c0 = document.getElementById('c0');
+        var c1 = document.getElementById('c1');
+        var c2 = document.getElementById('c2');
+        var c3 = document.getElementById('c3');
+        
+        var c4 = document.getElementById('c4');
+        var c5 = document.getElementById('c5');
+        var c6 = document.getElementById('c6');
+        var c7 = document.getElementById('c7');
+        
+        var c8 = document.getElementById('c8');
+        var c9 = document.getElementById('c9');
+        var c10 = document.getElementById('c10');
+        var c11 = document.getElementById('c11');
+
+        c0.addEventListener("click", function() { revealCard(0); });
+        c1.addEventListener("click", function() { revealCard(1); });
+        c2.addEventListener("click", function() { revealCard(2); });
+        c3.addEventListener("click", function() { revealCard(3); });
+        
+        c4.addEventListener("click", function() { revealCard(4); });
+        c5.addEventListener("click", function() { revealCard(5); });
+        c6.addEventListener("click", function() { revealCard(6); });
+        c7.addEventListener("click", function() { revealCard(7); });
+        
+        c8.addEventListener("click", function() { revealCard(8); });
+        c9.addEventListener("click", function() { revealCard(9); });
+        c10.addEventListener("click", function() { revealCard(10); });
+        c11.addEventListener("click", function() { revealCard(11); });
+
+        var oneVisible = false;
+        var turnCounter = 0;
+        var visible_nr;
+        var lock = false;
+        var pairsLeft = 6;
+
+        function revealCard(nr) 
+        {
+            var opacityValue = $('#c'+nr).css('opacity');
+            
+            if (opacityValue != 0 && lock == false) 
+            {
+                lock = true;
+                
+                var svgSymbol = getSvgSymbol(cards[nr]);
+                
+                $('#c'+nr).html(svgSymbol);
+                $('#c'+nr).addClass('cardA');
+                $('#c'+nr).removeClass('card');
+                
+                if(oneVisible == false) 
+                {
+                    oneVisible = true;
+                    visible_nr = nr;
+                    lock = false;
+                } 
+                else 
+                {
+                    if(cards[visible_nr] == cards[nr]) 
+                    {
+                        setTimeout(function() { hide2Cards(nr, visible_nr) }, 750);
+                    } 
+                    else 
+                    {
+                        setTimeout(function() { restore2Cards(nr, visible_nr) }, 1000);
+                    }
+                    
+                    turnCounter++;
+                    $('.score').html('Licznik: '+turnCounter);
+                    oneVisible = false;
+                }
+            }
+        }
+
+        function hide2Cards(nr1, nr2) 
+        {
+            $('#c'+nr1).css('opacity', '0');
+            $('#c'+nr2).css('opacity', '0');
+            
+            pairsLeft--;
+            
+            if(pairsLeft == 0) 
+            {
+                $('.board').html('<h1>Wygrałes!!!<br>Zrobiles(as) to w '+turnCounter+' ruchach</h1>');
+            }
+            
+            lock = false;
+        }
+
+        function restore2Cards(nr1, nr2) 
+        {
+            $('#c'+nr1).html('');    
+            $('#c'+nr1).addClass('card');
+            $('#c'+nr1).removeClass('cardA');    
+
+            $('#c'+nr2).html('');  
+            $('#c'+nr2).addClass('card');
+            $('#c'+nr2).removeClass('cardA');
+            
+            lock = false;
+        }
+
+        function getSvgSymbol(character) 
+        {
+            var svgSymbols = 
+            {
+                kolo1: '<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="red"/></svg>',
+                kwadrat1: '<svg viewBox="0 0 50 50"><rect x="5" y="5" width="40" height="40" fill="green"/></svg>',
+                trojkat1: '<svg viewBox="0 0 50 50"><polygon points="25,5 5,45 45,45" fill="yellow"/></svg>',
+                kolo2: '<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="blue"/></svg>',
+                kwadrat2: '<svg viewBox="0 0 50 50"><rect x="5" y="5" width="40" height="40" fill="red"/></svg>',
+                trojkat2: '<svg viewBox="0 0 50 50"><polygon points="25,5 5,45 45,45" fill="green"/></svg>'
+            };
+            return svgSymbols[character];
+        }
+    </script>
+
+    <style>
+        body 
+        {
+            margin: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Lobster', sans-serif;
+            font-size: 28px;
+        }
+
+        h1 
+        {
+            font-size: 64px;
+            font-weight: 400;
+            text-align: center;
+            letter-spacing: 5px;
+            margin-top: 20px;
+            margin-bottom: 0px;
+        }
+
+        p 
+        {
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+
+        .board 
+        {
+            width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .cardA
+        {
+	        width: 125px;
+	        height: 125px;
+	        display: inline-block;
+	        margin: 3px;
+	        border: 4px solid #5f0000;
+	        border-radius: 4px;
+	        cursor: default;
+	        filter: brightness(100%);
+	        transition: all .3s ease-in-out;
+        }
+
+        .card
+        {
+	        width: 125px;
+	        height: 125px;
+	        display: inline-block;
+	        margin: 3px;
+	        border: 4px solid #ffffff;
+	        border-radius: 4px;
+	        cursor: pointer;
+	        filter: brightness(70%);
+	        transition: all .3s ease-in-out;
+        }
+
+        .card:hover
+        {
+	        border: 4px solid #ffffff;
+	        filter: brightness(100%);
+        }
+
+        .score {
+            margin-top: 5px;
+            letter-spacing: 2px;
+        }
+    </style>
+</body>
+</html>
